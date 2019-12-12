@@ -4,6 +4,7 @@ import api from '~/services/api';
 import { Container } from './styles';
 
 export default function AvatarInput() {
+
   const { defaultValue, registerField } = useField('avatar');
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
@@ -18,10 +19,12 @@ export default function AvatarInput() {
         path: 'dataset.file',
       });
     }
-  }, [ref, registerField]);
+  // eslint-disable-next-line
+  }, [ref.current]);
 
   async function handleChange(e) {
     const data = new FormData();
+
     data.append('file', e.target.files[0]);
     const response = await api.post('files', data);
     const { id, url } = response.data;
@@ -42,8 +45,8 @@ export default function AvatarInput() {
         <input
           type="file"
           id="avatar"
-          data-file={file}
           accept="image/*"
+          data-file={file}
           onChange={handleChange}
           ref={ref}
         />

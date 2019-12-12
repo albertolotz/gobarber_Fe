@@ -7,14 +7,14 @@ export function* updateProfile({ payload }) {
   try {
     const { nome, email, avatar_id, ...rest } = payload.data;
 
-    const profile = {
-      nome,
-      email,
-      avatar_id,
-      ...(rest.oldPassword ? rest : {}),
-    };
+    // eslint-disable-next-line prefer-object-spread
+    const profile = Object.assign(
+      { nome, email, avatar_id },
+      rest.oldPassword ? rest : {}
+    );
 
     const response = yield call(api.put, 'users', profile);
+
     toast.success('Perfil Atualizado');
     yield put(updateProfileSuccess(response.data));
   } catch (err) {

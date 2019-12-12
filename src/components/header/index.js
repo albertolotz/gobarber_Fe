@@ -1,11 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux';
 import Notification from '~/components/notifications';
 import logo from '~/assets/logo-purple.svg';
 
 import { Container, Content, Profile } from './styles';
 
-export default function header() {
+export default function Header() {
+  const profile = useSelector(state=>state.user.profile);
+
+  let urlProfile = '';
+  try{
+      if(profile.avatar.url) urlProfile=profile.avatar.url;
+      }
+  catch (err)
+    {
+      urlProfile='https://api.adorable.io/avatars/50/abott@adorable.png';
+    }
+
   return (
     <Container>
       <Content>
@@ -18,13 +30,10 @@ export default function header() {
           <Notification />
           <Profile>
             <div>
-              <strong>Alberto Lotz</strong>
+              <strong>{profile.nome}</strong>
               <Link to="/profile">Meu Perfil</Link>
             </div>
-            <img
-              src="https://api.adorable.io/avatars/50/abott@adorable.png"
-              alt="Alberto Lotz"
-            />
+            <img src={ urlProfile } alt='Avatar'/>
           </Profile>
         </aside>
       </Content>

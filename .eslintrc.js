@@ -30,8 +30,10 @@ module.exports = {
     camelcase: "off",
     "react/jsx-props-no-spreading":"off",
     "no-console": ["error", { allow: ["tron"] }],
-    //"react-hooks/rules-of-hooks": "error",
+    "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "prefer-object-spread": "on",
+
   },
   settings: {
     "import/resolver": {
